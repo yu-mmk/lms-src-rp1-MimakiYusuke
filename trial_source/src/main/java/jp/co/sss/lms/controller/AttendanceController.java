@@ -47,6 +47,7 @@ public class AttendanceController {
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 		
+		//勤怠未入力数を取得
 		boolean bl = studentAttendanceService.notEnterCheck();
 		model.addAttribute("notEnterFlg", bl);
 

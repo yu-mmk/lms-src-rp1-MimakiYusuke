@@ -335,18 +335,52 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 	
+	/**
+	 * 勤怠未入力数を取得
+	 * @return
+	 * @throws ParseException
+	 */
 	public Boolean notEnterCheck() throws ParseException{
 		
 		 Integer lmsUserId = loginUserDto.getLmsUserId();
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		 //現在日付の取得
 		 Date now = new Date();
+		 //勤怠未入力数を取得
 		 Integer a = tStudentAttendanceMapper.notEnterCount(lmsUserId, (short)0, now);
-		 
+		 //勤怠未入力数の有無における場合分け
 		if(a > 0) {
 			return true;
 		}
 		else {
 			return false;
+		}
+	}
+	
+	public void formatConversion(AttendanceForm attendanceForm) {
+		
+		if (attendanceForm.getTrainingStartTimeHour() != null
+		        && !attendanceForm.getTrainingStartTimeHour().isEmpty()
+		        && attendanceForm.getTrainingStartTimeMinute() != null
+		        && !attendanceForm.getTrainingStartTimeMinute().isEmpty()) {
+
+		    attendanceForm.setTrainingStartTime(String.format("%02d:%02d",
+		            Integer.parseInt(attendanceForm.getTrainingStartTimeHour()),
+		            Integer.parseInt(attendanceForm.getTrainingStartTimeMinute())
+		        )
+		    );
+		}
+		
+		if (attendanceForm.getTrainingEndTimeHour() != null
+		        && !attendanceForm.getTrainingEndTimeHour().isEmpty()
+		        && attendanceForm.getTrainingEndTimeMinute() != null
+		        && !attendanceForm.getTrainingEndTimeMinute().isEmpty()) {
+
+		    attendanceForm.setTrainingEndTime(String.format("%02d:%02d",
+		            Integer.parseInt(attendanceForm.getTrainingEndTimeHour()),
+		            Integer.parseInt(attendanceForm.getTrainingEndTimeMinute())
+		        )
+		    );
 		}
 	}
 
