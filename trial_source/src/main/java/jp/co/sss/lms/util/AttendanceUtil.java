@@ -131,6 +131,28 @@ public class AttendanceUtil {
 		}
 		return map;
 	}
+	
+	public LinkedHashMap<Integer, String> getHour( ){
+		LinkedHashMap<Integer, String> hourMap = new LinkedHashMap<>();
+
+		hourMap.put(null, "");
+
+		for (int i = 0; i <= 23; i++) {
+		    hourMap.put(i, String.format("%02d", i));
+		}
+		return hourMap;
+	}
+	
+	public LinkedHashMap<Integer, String> getMinute(){
+		LinkedHashMap<Integer, String> minuteMap = new LinkedHashMap<>();
+
+		minuteMap.put(null, "");
+
+		for (int i = 0; i < 60; i++) {
+		    minuteMap.put(i, String.format("%02d", i));
+		}
+		return minuteMap;
+	}
 
 	/**
 	 * 研修日の判定

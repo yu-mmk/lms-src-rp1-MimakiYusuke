@@ -43,5 +43,9 @@ public class AttendanceForm {
 	private String trainingEndTimeHour;
 	//**退勤時間（分）*/
 	private String trainingEndTimeMinute;
+	/** 時間プルダウン */
+	private LinkedHashMap<Integer, String> hourMap;
+	/** 分プルダウン */
+	private LinkedHashMap<Integer, String> minuteMap;
 
 }

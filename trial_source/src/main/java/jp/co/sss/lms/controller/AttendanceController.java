@@ -48,8 +48,8 @@ public class AttendanceController {
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 		
 		//勤怠未入力数を取得
-		boolean bl = studentAttendanceService.notEnterCheck();
-		model.addAttribute("notEnterFlg", bl);
+		boolean notEnterCheckFlg = studentAttendanceService.notEnterCheck();
+		model.addAttribute("notEnterFlg", notEnterCheckFlg);
 
 		return "attendance/detail";
 	}
@@ -116,9 +116,12 @@ public class AttendanceController {
 		// 勤怠管理リストの取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
+		
+		
 		// 勤怠フォームの生成
 		AttendanceForm attendanceForm = studentAttendanceService
 				.setAttendanceForm(attendanceManagementDtoList);
+		
 		model.addAttribute("attendanceForm", attendanceForm);
 
 		return "attendance/update";
@@ -136,6 +139,7 @@ public class AttendanceController {
 	@RequestMapping(path = "/update", params = "complete", method = RequestMethod.POST)
 	public String complete(AttendanceForm attendanceForm, Model model, BindingResult result)
 			throws ParseException {
+		
 
 		// 更新
 		String message = studentAttendanceService.update(attendanceForm);
