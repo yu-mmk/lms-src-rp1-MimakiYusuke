@@ -372,10 +372,12 @@ public class StudentAttendanceService {
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 		 //現在日付の取得
 		 Date now = new Date();
-		 sdf.format(now);
+		 String DateTime = sdf.format(now);
+		 
+		 Date date = sdf.parse(DateTime);
 		 
 		 //勤怠未入力数を取得
-		 Integer a = tStudentAttendanceMapper.notEnterCount(lmsUserId, (short)0, now);
+		 Integer a = tStudentAttendanceMapper.notEnterCount(lmsUserId, (short)0, date);
 		 //勤怠未入力数の有無における場合分け
 		if(a > 0) {
 			return true;

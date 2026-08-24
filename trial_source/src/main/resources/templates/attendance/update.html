@@ -27,6 +27,8 @@
 						<tr>
 							<th class="w140">日付</th>
 							<th class="w300">コース内容</th>
+							<th class="w70"></th>
+						<!--みまき – Task26 -->
 							<th class="w180"colspan="3">出勤</th>
 							<th class="w180"colspan="3">退勤</th>
 							<th class="w80">中抜け時間</th>
@@ -48,8 +50,12 @@
 								<td class="w140">[[${dailyAttendanceForm.dispTrainingDate}]]</td>
 								<td class="w300">[[${dailyAttendanceForm.sectionName}]]</td>
 								
-								
+                                <!--みまき – Task28 -->
+									<td class="w60">
+    								<input type="button"class="btn btn-success" value="定時" th:onclick="|setTime(${stat.index})|" />
+									</td>
 									
+								<!--みまき – Task26 -->
 									<td>
 									<select th:name="|attendanceList[${stat.index}].trainingStartTimeHour|" class="form-control" style="width: 70px;">
 										<option th:each="StartTimeHour : ${attendanceForm.hourMap}" th:value="${StartTimeHour.key}" th:inlne="text" class="form-control" 
@@ -92,6 +98,29 @@
 								</td>
 							</tr>
 						</th:block>
+						
+						<!--みまき – Task28 -->
+						<script>
+								function setTime(index) {
+								
+								    document.querySelector(
+								        '[name="attendanceList[' + index + '].trainingStartTimeHour"]'
+								    ).value = "9";
+								
+								    document.querySelector(
+								        '[name="attendanceList[' + index + '].trainingStartTimeMinute"]'
+								    ).value = "0";
+								
+								    document.querySelector(
+								        '[name="attendanceList[' + index + '].trainingEndTimeHour"]'
+								    ).value = "18";
+								
+								    document.querySelector(
+								        '[name="attendanceList[' + index + '].trainingEndTimeMinute"]'
+								    ).value = "0";
+								}
+						</script>
+						
 					</tbody>
 				</table>
 
