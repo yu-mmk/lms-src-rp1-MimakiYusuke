@@ -132,6 +132,10 @@ public class AttendanceUtil {
 		return map;
 	}
 	
+	/**
+	 * @author みまき -Task.26
+	 * @return　hourMap
+	 */
 	public LinkedHashMap<Integer, String> getHour( ){
 		LinkedHashMap<Integer, String> hourMap = new LinkedHashMap<>();
 
@@ -143,6 +147,10 @@ public class AttendanceUtil {
 		return hourMap;
 	}
 	
+	/**
+	 * @author みまき -Task.26
+	 * @return　minuteMap
+	 */
 	public LinkedHashMap<Integer, String> getMinute(){
 		LinkedHashMap<Integer, String> minuteMap = new LinkedHashMap<>();
 
@@ -152,6 +160,19 @@ public class AttendanceUtil {
 		    minuteMap.put(i, String.format("%02d", i));
 		}
 		return minuteMap;
+	}
+	
+	/**
+	 * 受講時間取得
+	 * @author みまき -Task.27
+	 * @return　totalTrainingTime
+	 */
+	public TrainingTime calcJukoTime(TrainingTime trainingStartTime,
+			TrainingTime trainingEndTime) {
+
+		TrainingTime totalTrainingTime = trainingEndTime.subtract(trainingStartTime);
+				
+		return totalTrainingTime;
 	}
 
 	/**
