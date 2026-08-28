@@ -137,10 +137,28 @@ public class AttendanceController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(path = "/update", params = "complete", method = RequestMethod.POST)
-	public String complete(AttendanceForm attendanceForm, Model model, BindingResult result)
+	public String complete(AttendanceForm attendanceForm, BindingResult result, Model model)
 			throws ParseException {
 		
+		
+		// 入力チェック みまき -Task27
+		studentAttendanceService.updateInputCheck(attendanceForm, result);
+		
+		if (result.hasErrors()) {
+						
+			// 勤怠管理リストの取得
+			List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
+					.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
+			
+		    // 勤怠フォームの生成
+			 attendanceForm = studentAttendanceService
+				.setAttendanceForm(attendanceManagementDtoList);
+			
+			model.addAttribute("attendanceForm", attendanceForm);
 
+			return "attendance/update";
+		}
+						
 		// 更新
 		String message = studentAttendanceService.update(attendanceForm);
 		model.addAttribute("message", message);
@@ -148,6 +166,8 @@ public class AttendanceController {
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
+		
+		
 
 		return "attendance/detail";
 	}
